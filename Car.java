@@ -9,27 +9,6 @@ public abstract class Car implements Movable{
     public void move() {
         y += Math.sin(getDirection()) * currentSpeed;
         x += Math.cos(getDirection()) * currentSpeed;
-
-        turn_left(1.57);
-
-        if (x < 0) {
-            x = 0;
-
-            direction = Math.PI - direction;
-        }
-        else if (x > 700) {
-            x = 700;
-            direction = Math.PI - direction;
-        }
-        if (y < 0) {
-            y = 0;
-
-            direction = - direction;
-        }
-        else if (y > 500) {
-            y = 500;
-            direction = - direction;
-        }
     }
 
     @Override
@@ -48,6 +27,8 @@ public abstract class Car implements Movable{
     protected Position getPosition() {
         return new Position(x, y);
     }
+
+
 
     //Utomstående ska inte kunna ändra positionen men alla nya bilar som skapas behöver använda och uppdatera positionen
     protected double x, y;
