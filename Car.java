@@ -23,11 +23,11 @@ public abstract class Car implements Movable{
         if (direction < 0) direction += Math.PI * 2;
         return direction;
     }
-   /*
-    protected double getPosition() {
-        return new Pair<Double, Double>(x, y);
+
+    protected Position getPosition() {
+        return new Position(x, y);
     }
-    */
+
 
 
     //Utomstående ska inte kunna ändra positionen men alla nya bilar som skapas behöver använda och uppdatera positionen
