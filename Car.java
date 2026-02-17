@@ -12,12 +12,10 @@ public abstract class Car implements Movable{
     }
 
     @Override
-    public void turn_left() {direction -= 0.15;}
+    public void turn_left(double amountInRads) {direction -= amountInRads;}
 
     @Override
-    public void turn_right() {
-        direction += 0.15;
-    }
+    public void turn_right(double amountInRads) { direction += amountInRads; }
 
     private double direction = 0;
     protected double getDirection() {
