@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScaniaTest {
-    Scania Scania = new Scania();
+    Scania Scania = new Scania(0);
 
     @Test
     void setBedAngle() {

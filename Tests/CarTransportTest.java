@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CarTransportTest {
     CarTransport Lastbil = new CarTransport();
-    Saab95 saab = new Saab95();
+    Saab95 saab = new Saab95(0);
 
 
     @Test

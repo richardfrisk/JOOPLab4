@@ -9,6 +9,26 @@ public abstract class Car implements Movable{
     public void move() {
         y += Math.sin(getDirection()) * currentSpeed;
         x += Math.cos(getDirection()) * currentSpeed;
+
+        if (x < 0) {
+            x = 0;
+            direction = Math.PI - direction;
+        }
+
+        else if (x > 700) {
+            x = 700;
+            direction = Math.PI - direction;
+        }
+
+        if (y < 0) {
+            y = 0;
+            direction = - direction;
+        }
+
+        else if (y > 500) {
+            y = 500;
+            direction = - direction;
+        }
     }
 
     @Override
