@@ -40,6 +40,9 @@ public class CarController {
         cc.timer.start();
     }
 
+
+
+
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
@@ -71,4 +74,29 @@ public class CarController {
             car.brake(brake);
         }
     }
+    void turboOn() {
+        for (Car car : cars) {
+            car.turboOn();
+        }
+
+    }
+    void turboOff() {
+        for (Car car : cars) {
+            car.turboOff();
+        }
+
+    }
+    void liftBed() {
+        for (Car car : cars) {
+            car.liftBed();
+        }
+
+    }
+    void lowerBed() {
+        for (Car car : cars) {
+            car.lowerBed();
+        }
+
+    }
+
 }

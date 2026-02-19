@@ -1,7 +1,7 @@
 import java.awt.*;
 //import java.lang.Math.*;
 
-public abstract class Car implements Movable{
+public abstract class Car implements Movable {
     //Abstract - går ej att göra objekt av car
 
     //Hjälper till för att se att vi verkligen override:ar
@@ -13,31 +13,32 @@ public abstract class Car implements Movable{
         if (x < 0) {
             x = 0;
             direction = Math.PI - direction;
-        }
-
-        else if (x > 700) {
+        } else if (x > 700) {
             x = 700;
             direction = Math.PI - direction;
         }
 
         if (y < 0) {
             y = 0;
-            direction = - direction;
-        }
-
-        else if (y > 500) {
+            direction = -direction;
+        } else if (y > 500) {
             y = 500;
-            direction = - direction;
+            direction = -direction;
         }
     }
 
     @Override
-    public void turn_left(double amountInRads) {direction -= amountInRads;}
+    public void turn_left(double amountInRads) {
+        direction -= amountInRads;
+    }
 
     @Override
-    public void turn_right(double amountInRads) { direction += amountInRads; }
+    public void turn_right(double amountInRads) {
+        direction += amountInRads;
+    }
 
     private double direction = 0;
+
     protected double getDirection() {
         direction %= Math.PI * 2;
         if (direction < 0) direction += Math.PI * 2;
@@ -49,12 +50,11 @@ public abstract class Car implements Movable{
     }
 
 
-
     //Utomstående ska inte kunna ändra positionen men alla nya bilar som skapas behöver använda och uppdatera positionen
     protected double x, y;
 
     public double getDistance(double x1, double y1) {
-        return Math.sqrt(((x-x1)+(y-y1)));
+        return Math.sqrt(((x - x1) + (y - y1)));
     }
 
     protected int nrDoors; // Number of doors on the car
@@ -66,49 +66,58 @@ public abstract class Car implements Movable{
 
     protected abstract double speedFactor();
 
-    public void incrementSpeed(double amount){
+    public void incrementSpeed(double amount) {
         currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, enginePower);
     }
 
-    public void decrementSpeed(double amount){
+    public void decrementSpeed(double amount) {
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
 
-    public void gas(double amount){
-        if(amount < 0 || amount > 1) return;
+    public void gas(double amount) {
+        if (amount < 0 || amount > 1) return;
         incrementSpeed(amount);
     }
 
-    public void brake(double amount){
-        if(amount < 0 || amount > 1) return;
+    public void brake(double amount) {
+        if (amount < 0 || amount > 1) return;
         decrementSpeed(amount);
     }
 
-    public int getNrDoors(){
+    public int getNrDoors() {
         return nrDoors;
     }
 
-    public double getEnginePower(){
+    public double getEnginePower() {
         return enginePower;
     }
 
-    public double getCurrentSpeed(){
+    public double getCurrentSpeed() {
         return currentSpeed;
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return color;
     }
 
-    protected void setColor(Color clr){
+    protected void setColor(Color clr) {
         color = clr;
     }
 
-    public void startEngine(){
+    public void startEngine() {
         currentSpeed = 0.1;
     }
 
-    public void stopEngine(){
+    public void stopEngine() {
         currentSpeed = 0;
     }
+
+    public void turboOn() { }
+    public void turboOff() { }
+    public void liftBed() { }
+    public void lowerBed() { }
+
+
+
+
 }
