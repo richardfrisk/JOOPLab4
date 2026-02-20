@@ -25,6 +25,10 @@ public class Scania extends Truck {
 
     public double getAngle() { return bedAngle; }
 
+    public void lowerBed() { setBedAngle(0); }
+
+    public void liftBed() { setBedAngle(70); }
+
     @Override
     protected double speedFactor() {
         if (bedAngle != 0) return 0;

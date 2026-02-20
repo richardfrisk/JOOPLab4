@@ -26,7 +26,7 @@ public class CarTransport extends Truck{
     }
 
     public void loadCar(PassengerCar Car){
-        if (getDistance(Car.x, Car.y) < 5.0 && !isRampUp) {
+        if (getDistance(this.getPosition(), Car.getPosition()) < 5.0 && !isRampUp) {
             loadedCars.add(Car);
             Car.x = x;
             Car.y = y;

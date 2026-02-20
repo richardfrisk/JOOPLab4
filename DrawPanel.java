@@ -9,6 +9,7 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel{
 
+    public boolean volvoInWorkhop = false;
     // Just a single image, TODO: Generalize
     BufferedImage volvoImage;
     BufferedImage saabImage;
@@ -65,7 +66,10 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
+        // see javadoc for more info on the parameters
+        if (!volvoInWorkhop) { // here's that brain-dead bool that checks if the volvo is in a workshop
+            g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null);
+        }
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
         g.drawImage(saabImage, saabPoint.x, saabPoint.y, null);
         g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);

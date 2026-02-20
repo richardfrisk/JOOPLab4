@@ -9,22 +9,6 @@ public abstract class Car implements Movable {
     public void move() {
         y += Math.sin(getDirection()) * currentSpeed;
         x += Math.cos(getDirection()) * currentSpeed;
-
-        if (x < 0) {
-            x = 0;
-            direction = Math.PI - direction;
-        } else if (x > 700) {
-            x = 700;
-            direction = Math.PI - direction;
-        }
-
-        if (y < 0) {
-            y = 0;
-            direction = -direction;
-        } else if (y > 500) {
-            y = 500;
-            direction = -direction;
-        }
     }
 
     @Override
@@ -39,6 +23,11 @@ public abstract class Car implements Movable {
 
     private double direction = 0;
 
+    public double setDirection(double inputDirection) {
+        direction = inputDirection;
+        return direction;
+    }
+
     protected double getDirection() {
         direction %= Math.PI * 2;
         if (direction < 0) direction += Math.PI * 2;
@@ -49,12 +38,19 @@ public abstract class Car implements Movable {
         return new Position(x, y);
     }
 
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
 
     //Utomstående ska inte kunna ändra positionen men alla nya bilar som skapas behöver använda och uppdatera positionen
     protected double x, y;
 
-    public double getDistance(double x1, double y1) {
-        return Math.sqrt(((x - x1) + (y - y1)));
+    public double getDistance(Position A, Position B) {
+        return Math.sqrt(((A.getX() - B.getX()) + (A.getY() - B.getY())));
     }
 
     protected int nrDoors; // Number of doors on the car
