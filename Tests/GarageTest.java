@@ -1,3 +1,4 @@
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,11 +9,11 @@ class GarageTest {
 
     @Test
     void storeCar() {
-        Garage<Car> garage = new Garage<>(2, 2);
+        Garage<Car> garage = new Garage<>(new Position(2, 2));
 
         // IMPORTANT: place the car close enough
-        saab.x = 8;
-        saab.y = 8;
+        saab.pos.setY(8);
+        saab.pos.setX(8);
 
         garage.openGarage();
         garage.storeCar(saab);
@@ -23,13 +24,12 @@ class GarageTest {
 
     @Test
     void removeCar() {
-        Garage<Car> garage = new Garage<>(5, 5);
+        Garage<Car> garage = new Garage<>(new Position(5, 5));
 
         garage.openGarage();
 
         // IMPORTANT: place the car close enough
-        saab.x = 8;
-        saab.y = 8;
+        saab.pos.setPosition(new Position(8, 8));
 
         garage.storeCar(saab);
         garage.removeCar();
@@ -39,7 +39,7 @@ class GarageTest {
 
     @Test
     void openGarage() {
-        Garage<Car> garage = new Garage<>(2, 2);
+        Garage<Car> garage = new Garage<>(new Position(2, 2));
 
         garage.openGarage();
         assertTrue(garage.getOpenState());
@@ -47,7 +47,7 @@ class GarageTest {
 
     @Test
     void closeGarage() {
-        Garage<Car> garage = new Garage<>(2, 2);
+        Garage<Car> garage = new Garage<>(new Position(2, 2));
 
         garage.closeGarage();
         assertFalse(garage.getOpenState());

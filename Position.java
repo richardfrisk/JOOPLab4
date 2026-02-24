@@ -9,4 +9,26 @@ public class Position {
 
     public double getX() { return x; }
     public double getY() { return y; }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    protected Position getPosition() {
+        return new Position(x, y);
+    }
+
+    protected void setPosition(Position B){ this.setX(B.getX());
+                                            this.setY(B.getY()); }
+
+    public double getDistance(Position A, Position B) {
+        return Math.sqrt(((A.getX() - B.getX()) + (A.getY() - B.getY())));
+    }
+
+    public boolean checkCollision(Position A, Position B, double distance) {
+        return getDistance(A, B) < distance;
+    }
 }

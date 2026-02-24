@@ -11,7 +11,7 @@ public class Saab95 extends PassengerCar{
         turboOn = false;
         modelName = "Saab95";
         turningForce = 1;
-        y = startY;
+        pos.setY(startY);
         stopEngine();
     }
 

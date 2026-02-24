@@ -5,19 +5,17 @@ import java.util.ArrayList;
 public class Garage<CarType extends Car> {
     private ArrayList<CarType> storedCars = new ArrayList<>(5);
     private boolean isOpen;
-    private final double x,y;
+    private final Position pos;
 
-    public Garage(double x, double y){
+    public Garage(Position position){
         this.isOpen = true;
-        this.x = x;
-        this.y = y;
+        this.pos = position;
     }
 
     public void storeCar(CarType car) {
         if (isOpen) {
             storedCars.add(car);
-            car.x = x;
-            car.y = y;
+            car.pos.setPosition(pos.getPosition());
         }
         else throw new IllegalStateException();
     }
@@ -26,15 +24,12 @@ public class Garage<CarType extends Car> {
         return isOpen;
     }
 
-    public Position getPosition() {
-        return new Position(x, y);
-    }
 
     public CarType removeCar(){
         if (isOpen && !storedCars.isEmpty()) {
             int index = storedCars.size() - 1;
-            storedCars.get(index).y = y + 105;
-            storedCars.get(index).x = x;
+            storedCars.get(index).pos.setY(pos.getY() + 105);
+            storedCars.get(index).pos.setX(pos.getX());
             return storedCars.remove(index);
         }
         else throw new IllegalStateException();

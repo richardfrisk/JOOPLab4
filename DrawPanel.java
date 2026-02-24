@@ -10,7 +10,7 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
     public boolean volvoInWorkhop = false;
-    // Just a single image, TODO: Generalize
+    // Just a single image,
     BufferedImage volvoImage;
     BufferedImage saabImage;
     BufferedImage scaniaImage;
@@ -22,7 +22,6 @@ public class DrawPanel extends JPanel{
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
 
-    // TODO: Make this general for all cars
     void moveit(int x, int y, Car car) {
         if (car instanceof Volvo240) {
             volvoPoint.x = x;
@@ -62,7 +61,6 @@ public class DrawPanel extends JPanel{
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself
-    // TODO: Change to suit your needs.
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

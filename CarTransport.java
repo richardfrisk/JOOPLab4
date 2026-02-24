@@ -26,10 +26,9 @@ public class CarTransport extends Truck{
     }
 
     public void loadCar(PassengerCar Car){
-        if (getDistance(this.getPosition(), Car.getPosition()) < 5.0 && !isRampUp) {
+        if (pos.getDistance(this.pos.getPosition(), Car.pos.getPosition()) < 5.0 && !isRampUp) {
             loadedCars.add(Car);
-            Car.x = x;
-            Car.y = y;
+            Car.pos.setPosition(this.pos.getPosition());
         }
         else throw new IllegalStateException();
     }
@@ -37,8 +36,8 @@ public class CarTransport extends Truck{
     public PassengerCar removeCar(){
         if (!loadedCars.isEmpty() && !isRampUp) {
             PassengerCar unLoadedCar = loadedCars.removeLast();
-            unLoadedCar.y = y + 5;
-            unLoadedCar.x = x;
+            unLoadedCar.pos.setY(pos.getY() + 5);
+            unLoadedCar.pos.setX(pos.getX());
             return unLoadedCar;
         }
         else throw new IllegalStateException();

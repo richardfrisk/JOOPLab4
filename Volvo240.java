@@ -11,9 +11,10 @@ public class Volvo240 extends PassengerCar{
         enginePower = 100;
         modelName = "Volvo240";
         turningForce = 1;
-        y = startY;
+        pos.setY(startY);
         stopEngine();
     }
+
 
     @Override
     protected double speedFactor(){

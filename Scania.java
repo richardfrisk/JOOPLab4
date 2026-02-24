@@ -11,7 +11,7 @@ public class Scania extends Truck {
         enginePower = 100;
         modelName = "Scania";
         turningForce = 1;
-        y = startY;
+        pos.setY(startY);
         hasBed = true;
         if (hasBed) bedAngle = 0;
         stopEngine();

@@ -7,8 +7,8 @@ public abstract class Car implements Movable {
     //Hjälper till för att se att vi verkligen override:ar
     @Override
     public void move() {
-        y += Math.sin(getDirection()) * currentSpeed;
-        x += Math.cos(getDirection()) * currentSpeed;
+        pos.setY(pos.getY() + Math.sin(getDirection()) * currentSpeed);
+        pos.setX(pos.getX() + Math.cos(getDirection()) * currentSpeed);
     }
 
     @Override
@@ -34,24 +34,8 @@ public abstract class Car implements Movable {
         return direction;
     }
 
-    protected Position getPosition() {
-        return new Position(x, y);
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
     //Utomstående ska inte kunna ändra positionen men alla nya bilar som skapas behöver använda och uppdatera positionen
-    protected double x, y;
-
-    public double getDistance(Position A, Position B) {
-        return Math.sqrt(((A.getX() - B.getX()) + (A.getY() - B.getY())));
-    }
+    protected Position pos = new Position(0, 0);
 
     protected int nrDoors; // Number of doors on the car
     protected double enginePower; // Engine power of the car
