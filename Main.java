@@ -21,9 +21,6 @@ public class Main {
     Garage<Volvo240> workshop = new Garage<>(new Position(300, 300));
 
 
-
-
-
     public void main(String[] args) {
         // Instance of this class
         cc.cars.add(new Volvo240(300));
@@ -42,46 +39,7 @@ public class Main {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Bytte till en mer traditionell for loop för att få garaget att fungera
-            for (int i = 0; i < cc.cars.size(); i++) {
-                Car car = cc.cars.get(i);
-                car.move();
-
-                int x = (int) Math.round(car.pos.getPosition().getX());
-                int y = (int) Math.round(car.pos.getPosition().getY());
-
-                Position workshopMidPoint = new Position((frame.drawPanel.volvoWorkshopPoint.x - frame.drawPanel.volvoWorkshopImage.getWidth() / 2),
-                        (frame.drawPanel.volvoWorkshopPoint.y - frame.drawPanel.volvoWorkshopImage.getHeight() / 2));
-
-                Position carMidPoint = new Position((car.pos.getPosition().getX() - frame.drawPanel.volvoImage.getWidth() / 2),
-                        car.pos.getPosition().getX() - frame.drawPanel.volvoImage.getHeight() / 2);
-
-                cc.handleEdgeCollision(
-                        car,
-                        x,
-                        y,
-                        frame.getWidth(),
-                        frame.getHeight(),
-                        frame.drawPanel.volvoImage.getWidth(),
-                        frame.drawPanel.volvoImage.getHeight()
-                );
-                frame.drawPanel.moveit(x, y, car);
-
-                // Check workshop collision, currently bugged. I think that because every cars position needs to be set
-                // to (0, 0) initially it also does this to the workshop and the checkDistance sees a distance of zero
-                // and the volvo is placed in the workshop.
-                // TODO: add a getCarType() in workshop to make this generalized
-                if (car.pos.checkCollision(workshopMidPoint, carMidPoint, (frame.drawPanel.volvoWorkshopImage.getWidth() / 2))) {
-                    try {
-                        workshop.storeCar((Volvo240) car);
-                        Car volvo = cc.cars.remove(i);
-                        frame.drawPanel.volvoInWorkhop = true; // this is some fuck ass code but it works and I dont wanna give any more shits about it
-                        i--;
-                    } catch (ClassCastException _) {}
-                }
-            }
-            // Repaint once after all movements are calculated
-            frame.drawPanel.repaint();
+            cc.update(frame, workshop);
         }
 
     }

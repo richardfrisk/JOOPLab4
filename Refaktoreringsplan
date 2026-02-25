@@ -1,5 +1,5 @@
 Refaktoriseringsplan
-- Flytta ut getDistance() och checkCollision() i Position klassen
+- Flytta ut getDistance() och checkCollision() i Position klassen // KLAR
 - Lägga till en storage entity interface för att sammankoppla garage- och cartransport
 klasserna. Detta är för att undvika kodduplicering.
 - Skapa en ny klass som heter picture eller sprite som hanterar sprite informationen.
@@ -8,4 +8,4 @@ igenom i paintComponent() och på så sätt kan man helt enkelt poppa element f�
 sluta rita ut dem.
 - Ta main() metoden ut ur carController och lägg in den i en ny main klass för att bättre
 använda MVC modellen. Detta gör även CarView, CarController och drawpanel mer
-oberoende av varandra. // typ klar, osäker hur man kan göra carview mer oberoende
+oberoende av varandra. // KLAR
