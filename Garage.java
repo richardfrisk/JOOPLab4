@@ -3,40 +3,36 @@ import com.sun.jdi.CharType;
 import java.util.ArrayList;
 
 public class Garage<CarType extends Car> {
-    private ArrayList<CarType> storedCars = new ArrayList<>(5);
     private boolean isOpen;
-    private final Position pos;
+    public Position pos;
+    private final ArrayList<CarType> storedCars = new ArrayList<>(5);
+
+
+    private final StorageEntity<CarType> storage;
 
     public Garage(Position position){
         this.isOpen = true;
         this.pos = position;
+        storage = new StorageEntity<>(storedCars, pos);
     }
 
     public void storeCar(CarType car) {
-        if (isOpen) {
-            storedCars.add(car);
-            car.pos.setPosition(pos.getPosition());
-        }
+        if (isOpen) storage.storeCar(car);
         else throw new IllegalStateException();
     }
 
-    public boolean getOpenState() {
-        return isOpen;
-    }
-
-
-    public CarType removeCar(){
-        if (isOpen && !storedCars.isEmpty()) {
-            int index = storedCars.size() - 1;
-            storedCars.get(index).pos.setY(pos.getY() + 105);
-            storedCars.get(index).pos.setX(pos.getX());
-            return storedCars.remove(index);
-        }
+    public void removeCar(CarType car) {
+        if (isOpen) storage.removeCar(car);
         else throw new IllegalStateException();
     }
 
     public ArrayList<CarType> getStoredCars() {
-        return storedCars;
+        return storage.getStoredCars();
+    }
+
+
+    public boolean getOpenState() {
+        return isOpen;
     }
 
     public void openGarage(){ isOpen = true; }

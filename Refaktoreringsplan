@@ -1,7 +1,7 @@
 Refaktoriseringsplan
 - Flytta ut getDistance() och checkCollision() i Position klassen // KLAR
 - Lägga till en storage entity interface för att sammankoppla garage- och cartransport
-klasserna. Detta är för att undvika kodduplicering.
+klasserna. Detta är för att undvika kodduplicering. // KLAR
 - Skapa en ny klass som heter picture eller sprite som hanterar sprite informationen.
 Detta för att kunna skapa en lista med sprite objekt i DrawPanel. Denna loopas
 igenom i paintComponent() och på så sätt kan man helt enkelt poppa element för att
