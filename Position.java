@@ -25,7 +25,7 @@ public class Position {
                                             this.setY(B.getY()); }
 
     public double getDistance(Position A, Position B) {
-        return Math.sqrt(((A.getX() - B.getX()) + (A.getY() - B.getY())));
+        return Math.sqrt((Math.pow((A.getX() - B.getX()), 2) + Math.pow((A.getY() - B.getY()), 2)));
     }
 
     public boolean checkCollision(Position A, Position B, double distance) {

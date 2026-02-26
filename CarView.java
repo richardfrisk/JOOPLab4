@@ -44,6 +44,35 @@ public class CarView extends JFrame{
         initComponents(framename);
     }
 
+    public void update(Garage<Volvo240> workshop) {
+        // Bytte till en mer traditionell for loop för att få garaget att fungera
+        for (int i = 0; i < carC.cars.size(); i++) {
+            Car car = carC.cars.get(i);
+            car.move();
+
+            int x = (int) Math.round(car.pos.getPosition().getX());
+            int y = (int) Math.round(car.pos.getPosition().getY());
+
+
+
+            carC.handleEdgeCollision(
+                    car,
+                    x,
+                    y,
+                    getWidth(),
+                    getHeight(),
+                    drawPanel.volvoImage.getWidth(),
+                    drawPanel.volvoImage.getHeight()
+            );
+
+            drawPanel.moveit(x, y, car);
+
+        }
+        carC.handleWorkshopCollision(this, workshop);
+        // Repaint once after all movements are calculated
+        drawPanel.repaint();
+    }
+
     // Sets everything in place and fits everything
     private void initComponents(String title) {
 

@@ -3,8 +3,11 @@ import java.util.ArrayList;
 
 public class CarTransport extends Truck{
 
-    private ArrayList<PassengerCar> loadedCars = new ArrayList<>(8);
+    private ArrayList<PassengerCar> storedCars = new ArrayList<>(8);
     private boolean isRampUp;
+
+    private final StorageEntity<PassengerCar> storage = new StorageEntity<>(storedCars, pos);
+
 
 
     public CarTransport() {
@@ -25,26 +28,19 @@ public class CarTransport extends Truck{
         if (isRampUp) isRampUp = false;
     }
 
-    public void loadCar(PassengerCar Car){
-        if (pos.getDistance(this.pos.getPosition(), Car.pos.getPosition()) < 5.0 && !isRampUp) {
-            loadedCars.add(Car);
-            Car.pos.setPosition(this.pos.getPosition());
-        }
+
+    public void storeCar(PassengerCar car) {
+        if (isRampUp) storage.storeCar(car);
         else throw new IllegalStateException();
     }
 
-    public PassengerCar removeCar(){
-        if (!loadedCars.isEmpty() && !isRampUp) {
-            PassengerCar unLoadedCar = loadedCars.removeLast();
-            unLoadedCar.pos.setY(pos.getY() + 5);
-            unLoadedCar.pos.setX(pos.getX());
-            return unLoadedCar;
-        }
+    public void removeCar(PassengerCar car) {
+        if (isRampUp) storage.removeCar(car);
         else throw new IllegalStateException();
     }
 
-    public ArrayList<PassengerCar> getLoadedCars() {
-        return loadedCars;
+    public ArrayList<PassengerCar> getStoredCars() {
+        return storage.getStoredCars();
     }
 
     public boolean getRampState() { return isRampUp; }

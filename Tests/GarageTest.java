@@ -26,13 +26,14 @@ class GarageTest {
     void removeCar() {
         Garage<Car> garage = new Garage<>(new Position(5, 5));
 
+        garage.pos.setPosition(new Position(7, 7));
         garage.openGarage();
 
         // IMPORTANT: place the car close enough
         saab.pos.setPosition(new Position(8, 8));
 
         garage.storeCar(saab);
-        garage.removeCar();
+        garage.removeCar(saab);
 
         assertTrue(garage.getStoredCars().isEmpty());
     }

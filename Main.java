@@ -39,7 +39,7 @@ public class Main {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            cc.update(frame, workshop);
+            frame.update(workshop);
         }
 
     }
