@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 public class CarTransport extends Truck{
 
-    private ArrayList<PassengerCar> storedCars = new ArrayList<>(8);
+    private final ArrayList<PassengerCar> storedCars = new ArrayList<>(8);
     private boolean isRampUp;
 
-    private final StorageEntity<PassengerCar> storage = new StorageEntity<>(storedCars, pos);
+    private final StorageEntity<PassengerCar> storage;
 
 
 
@@ -18,6 +18,8 @@ public class CarTransport extends Truck{
         turningForce = 1;
         stopEngine();
         isRampUp = false;
+
+        storage = new StorageEntity<>(storedCars, this.pos);
     }
 
     public void raiseRamp() {
@@ -30,12 +32,12 @@ public class CarTransport extends Truck{
 
 
     public void storeCar(PassengerCar car) {
-        if (isRampUp) storage.storeCar(car);
+        if (!isRampUp) storage.storeCar(car);
         else throw new IllegalStateException();
     }
 
     public void removeCar(PassengerCar car) {
-        if (isRampUp) storage.removeCar(car);
+        if (!isRampUp) storage.removeCar(car);
         else throw new IllegalStateException();
     }
 

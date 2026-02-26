@@ -8,11 +8,12 @@ public class Garage<CarType extends Car> {
     private final ArrayList<CarType> storedCars = new ArrayList<>(5);
 
 
-    private final StorageEntity<CarType> storage = new StorageEntity<>(storedCars, pos);
+    private final StorageEntity<CarType> storage;
 
     public Garage(Position position){
         this.isOpen = true;
         this.pos = position;
+        storage = new StorageEntity<>(storedCars, pos);
     }
 
     public void storeCar(CarType car) {
