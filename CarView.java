@@ -48,6 +48,7 @@ public class CarView extends JFrame{
         // Bytte till en mer traditionell for loop för att få garaget att fungera
         for (int i = 0; i < carC.cars.size(); i++) {
             Car car = carC.cars.get(i);
+            Sprite sprite = drawPanel.sprites.get(i);
             car.move();
 
             int x = (int) Math.round(car.pos.getPosition().getX());
@@ -61,11 +62,12 @@ public class CarView extends JFrame{
                     y,
                     getWidth(),
                     getHeight(),
-                    drawPanel.volvoImage.getWidth(),
-                    drawPanel.volvoImage.getHeight()
+                    sprite.getImage().getHeight(),
+                    sprite.getImage().getWidth()
+
             );
 
-            drawPanel.moveit(x, y, car);
+            drawPanel.moveit(x, y, sprite);
 
         }
         carC.handleWorkshopCollision(this, workshop);

@@ -1,39 +1,51 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.awt.image.BufferedImage;
+
 
 public class Sprite {
-        private Position position;
-        private String IMGstring;
+        protected Position position;
+        private String IMGpath;
+        private BufferedImage sprite;
         private Boolean inStorage;
 
-        public Sprite(Position position, String IMGstring) {
+
+        public Sprite(Position position, String IMGpath) {
                 this.position = position;
-                this.IMGstring = IMGstring;
+                this.IMGpath = IMGpath;
                 this.inStorage = false;
+                setImage(IMGpath);
         }
 
-        public Position getPosition() {
-                return position;
+
+        public String getIMGpath() {
+                return IMGpath;
+        }
+        public void setIMGpath(String IMGpath) {
+                this.IMGpath = IMGpath;
         }
 
-        //SetPosition()?
-        public void setPosition() {
+        public boolean getStorageState() { return inStorage; }
+        public void setStorageState(boolean state) { inStorage = state; }
 
+        public BufferedImage getImage() { return sprite; }
+
+
+        public void setImage(String path) {
+            try {
+                sprite = ImageIO.read(DrawPanel.class.getResourceAsStream(path));
+            } catch (IOException ex)
+            {
+                    ex.printStackTrace();
+            }
         }
 
-        public String getIMGstring() {
-                return IMGstring;
-        }
-
-        public void setIMGstring(String IMGstring) {
-                this.IMGstring = IMGstring;
-        }
-        //Get och Set med Boolean?
-
-
-        //Skapa metoden drawImage() som använder ImageIO.read och g.drawImage som i drawPanel
-        void drawImage(){
-
+        void drawImage(Graphics g) {
+                if (!inStorage) {
+                        int x = (int) Math.round(position.getPosition().getX());
+                        int y = (int) Math.round(position.getPosition().getY());
+                        g.drawImage(sprite, x, y, null);
                 }
         }
+}

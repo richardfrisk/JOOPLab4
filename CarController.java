@@ -18,22 +18,23 @@ public class CarController {
 
 
     //methods:
-    //TODO: Fråga TA hur man kan göra denna generell. Så den funkar med andra typer av garage.
-    public void handleWorkshopCollision(CarView view, Garage<Volvo240> workshop) {
+    public <CarType extends Car> void handleWorkshopCollision(CarView view, Garage<CarType> workshop) {
         for (int i = 0; i < cars.size(); i++) {
             Car car = cars.get(i);
+            Sprite sprite = view.drawPanel.sprites.get(i);
 
-            Position workshopMidPoint = new Position((view.drawPanel.volvoWorkshopPoint.x - view.drawPanel.volvoWorkshopImage.getWidth() / 2),
-                    (view.drawPanel.volvoWorkshopPoint.y - view.drawPanel.volvoWorkshopImage.getHeight() / 2));
+            Position workshopMidPoint = new Position((view.drawPanel.volvoWorkshopPoint.x - sprite.getImage().getWidth() / 2),
+                    (view.drawPanel.volvoWorkshopPoint.y - sprite.getImage().getHeight() / 2));
 
-            Position carMidPoint = new Position((car.pos.getPosition().getX() - view.drawPanel.volvoImage.getWidth() / 2),
-                    car.pos.getPosition().getY() - view.drawPanel.volvoImage.getHeight() / 2);
+            Position carMidPoint = new Position((car.pos.getPosition().getX() - sprite.getImage().getWidth() / 2),
+                    car.pos.getPosition().getY() - sprite.getImage().getHeight() / 2);
 
-            if (car.pos.checkCollision(workshopMidPoint, carMidPoint, (view.drawPanel.volvoWorkshopImage.getWidth() / 2))) {
+            if (car.pos.checkCollision(workshopMidPoint, carMidPoint, (sprite.getImage().getWidth() / 2))) {
                 try {
-                    workshop.storeCar((Volvo240) car);
+                    workshop.storeCar((CarType) car);
                     Car volvo = cars.remove(i);
-                    view.drawPanel.volvoInWorkhop = true; // this is some fuck ass code but it works and I dont wanna give any more shits about it
+                    sprite.setStorageState(true);
+                    view.drawPanel.sprites.remove(i);
                     i--;
                 } catch (ClassCastException ignored) {}
             }

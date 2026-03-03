@@ -5,7 +5,7 @@ klasserna. Detta är för att undvika kodduplicering. // KLAR
 - Skapa en ny klass som heter picture eller sprite som hanterar sprite informationen.
 Detta för att kunna skapa en lista med sprite objekt i DrawPanel. Denna loopas
 igenom i paintComponent() och på så sätt kan man helt enkelt poppa element för att
-sluta rita ut dem.
+sluta rita ut dem. // KLAR
 - Ta main() metoden ut ur carController och lägg in den i en ny main klass för att bättre
 använda MVC modellen. Detta gör även CarView, CarController och drawpanel mer
 oberoende av varandra. // KLAR
