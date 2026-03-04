@@ -9,7 +9,7 @@ class GarageTest {
 
     @Test
     void storeCar() {
-        Garage<Car> garage = new Garage<>(new Position(2, 2));
+        Garage<Car> garage = new Garage<>(new Position(2, 2), Car.class);
 
         // IMPORTANT: place the car close enough
         saab.pos.setY(8);
@@ -24,7 +24,7 @@ class GarageTest {
 
     @Test
     void removeCar() {
-        Garage<Car> garage = new Garage<>(new Position(5, 5));
+        Garage<Car> garage = new Garage<>(new Position(5, 5), Car.class);
 
         garage.pos.setPosition(new Position(7, 7));
         garage.openGarage();
@@ -40,7 +40,7 @@ class GarageTest {
 
     @Test
     void openGarage() {
-        Garage<Car> garage = new Garage<>(new Position(2, 2));
+        Garage<Car> garage = new Garage<>(new Position(2, 2), Car.class);
 
         garage.openGarage();
         assertTrue(garage.getOpenState());
@@ -48,7 +48,7 @@ class GarageTest {
 
     @Test
     void closeGarage() {
-        Garage<Car> garage = new Garage<>(new Position(2, 2));
+        Garage<Car> garage = new Garage<>(new Position(2, 2), Car.class);
 
         garage.closeGarage();
         assertFalse(garage.getOpenState());

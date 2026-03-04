@@ -18,7 +18,7 @@ public class Main {
     CarController cc = new CarController();
     // A list of cars, modify if needed
     //ArrayList<Car> cars = new ArrayList<>();
-    Garage<Volvo240> workshop = new Garage<>(new Position(300, 300));
+    Garage<Volvo240> workshop = new Garage<>(new Position(300, 300), Volvo240.class);
 
 
     public void main(String[] args) {

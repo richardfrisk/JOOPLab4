@@ -21,7 +21,7 @@ public class CarController {
     public <CarType extends Car> void handleWorkshopCollision(CarView view, Garage<CarType> workshop) {
         for (int i = 0; i < cars.size(); i++) {
             Car car = cars.get(i);
-            Sprite sprite = view.drawPanel.sprites.get(i);
+            Sprite sprite = view.drawPanel.carSprites.getSprites().get(i);
 
             Position workshopMidPoint = new Position((view.drawPanel.volvoWorkshopPoint.x - sprite.getImage().getWidth() / 2),
                     (view.drawPanel.volvoWorkshopPoint.y - sprite.getImage().getHeight() / 2));
@@ -34,9 +34,9 @@ public class CarController {
                     workshop.storeCar((CarType) car);
                     Car volvo = cars.remove(i);
                     sprite.setStorageState(true);
-                    view.drawPanel.sprites.remove(i);
+                    view.drawPanel.carSprites.getSprites().remove(i);
                     i--;
-                } catch (ClassCastException ignored) {}
+                } catch (IllegalArgumentException ignored) {}
             }
         }
     }

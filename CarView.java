@@ -34,6 +34,8 @@ public class CarView extends JFrame{
     JButton turboOffButton = new JButton("Saab Turbo off");
     JButton liftBedButton = new JButton("Scania Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
+    JButton addCarButton = new JButton("Add car");
+    JButton removeCarButton = new JButton("Remove car");
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
@@ -48,7 +50,7 @@ public class CarView extends JFrame{
         // Bytte till en mer traditionell for loop för att få garaget att fungera
         for (int i = 0; i < carC.cars.size(); i++) {
             Car car = carC.cars.get(i);
-            Sprite sprite = drawPanel.sprites.get(i);
+            Sprite sprite = drawPanel.carSprites.getSprites().get(i);
             car.move();
 
             int x = (int) Math.round(car.pos.getPosition().getX());
@@ -109,9 +111,11 @@ public class CarView extends JFrame{
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
         controlPanel.add(liftBedButton, 2);
-        controlPanel.add(brakeButton, 3);
-        controlPanel.add(turboOffButton, 4);
-        controlPanel.add(lowerBedButton, 5);
+        controlPanel.add(addCarButton, 3);
+        controlPanel.add(brakeButton, 4);
+        controlPanel.add(turboOffButton, 5);
+        controlPanel.add(lowerBedButton, 6);
+        controlPanel.add(removeCarButton, 7);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -181,6 +185,27 @@ public class CarView extends JFrame{
                 carC.stopEngine();
             }
         });
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(carC.cars.size() < 10) {
+                    Position pos = new Position(Math.round(Math.random() * 800), Math.round(Math.random() * 500));
+                    PassengerCar saab = new Saab95(pos.getY());
+                    saab.pos.setX(pos.getX());
+                    carC.cars.add(saab);
+                    drawPanel.carSprites.addSprite(new Sprite(pos, "pics/Saab95.jpg"));
+                }
+            }
+        });
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = Math.toIntExact(Math.round(Math.random() * carC.cars.size()));
+                carC.cars.remove(index);
+                drawPanel.carSprites.getSprites().remove(index);
+            }
+        });
+
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();
 
