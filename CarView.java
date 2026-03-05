@@ -12,6 +12,20 @@ import java.awt.event.ActionListener;
  * each of it's components.
  **/
 
+/*
+Move update() to carController
+Fix sprite to not have a position
+View is allowed to have read-only access to the model
+controller has a write/read relationship to model
+Model is write-only to view
+Model using drawpanel is really bad!
+The cars position in model is its midpoint
+Do the midpoint calculation when drawing the sprite
+Moveit() needs to go, the modelCar moves and the sprite follows
+Right now we have, move modelCar and move spriteCar
+ */
+
+
 public class CarView extends JFrame{
     private static final int X = 800;
     private static final int Y = 800;

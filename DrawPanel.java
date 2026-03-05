@@ -49,7 +49,5 @@ public class DrawPanel extends JPanel{
 
         workshopSprites.drawImage(g);
 
-        g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
-
     }
 }

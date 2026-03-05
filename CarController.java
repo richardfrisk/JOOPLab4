@@ -17,14 +17,18 @@ public class CarController {
 
 
 
-    //methods:
+    //methods: //Lagarar bilar i verkstan, tar bort från listan, tar bort dess sprite
     public <CarType extends Car> void handleWorkshopCollision(CarView view, Garage<CarType> workshop) {
         for (int i = 0; i < cars.size(); i++) {
             Car car = cars.get(i);
+
+            Position workshopPos = view.drawPanel.workshopSprites.getSprites().get(0).position;
+
+            Sprite workshopSprite = view.drawPanel.workshopSprites.getSprites().get(0);
             Sprite sprite = view.drawPanel.carSprites.getSprites().get(i);
 
-            Position workshopMidPoint = new Position((view.drawPanel.volvoWorkshopPoint.x - sprite.getImage().getWidth() / 2),
-                    (view.drawPanel.volvoWorkshopPoint.y - sprite.getImage().getHeight() / 2));
+            Position workshopMidPoint = new Position((workshopPos.getX() - workshopSprite.getImage().getWidth() / 2),
+                    (workshopPos.getY() - workshopSprite.getImage().getHeight() / 2));
 
             Position carMidPoint = new Position((car.pos.getPosition().getX() - sprite.getImage().getWidth() / 2),
                     car.pos.getPosition().getY() - sprite.getImage().getHeight() / 2);
@@ -40,7 +44,7 @@ public class CarController {
             }
         }
     }
-
+    //Vad som händer när bilarna nuddar väggarna
     public void handleEdgeCollision(Car car, int x, int y, int width, int height, int imgW, int imgH) {
         if (x + imgW > width) {
             car.setDirection(Math.PI - car.getDirection());
