@@ -22,7 +22,7 @@ class CarTransportTest {
     @Test
     void loadCar() {
         CarTransport Lastbil = new CarTransport();
-        Saab95 saab = new Saab95(0);
+        Saab95 saab = new Saab95(new Position(0, 0));
 
         Lastbil.lowerRamp();
         Lastbil.storeCar(saab);
@@ -33,7 +33,7 @@ class CarTransportTest {
     @Test
     void removeCar() {
         CarTransport Lastbil = new CarTransport();
-        Saab95 saab = new Saab95(0);
+        Saab95 saab = new Saab95(new Position(0, 0));
 
         Lastbil.lowerRamp();
 

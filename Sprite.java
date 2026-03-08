@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 
 
-public class Sprite implements drawableSprite {
-        protected Position position;
+public class Sprite {
         private String IMGpath;
         private BufferedImage sprite;
         private Boolean inStorage;
 
 
-        public Sprite(Position position, String IMGpath) {
-                this.position = position;
+        public Sprite(String IMGpath) {
                 this.IMGpath = IMGpath;
                 this.inStorage = false;
                 setImage(IMGpath);
@@ -41,7 +39,7 @@ public class Sprite implements drawableSprite {
             }
         }
 
-        public void drawImage(Graphics g) {
+        public void drawImage(Graphics g, Position position) {
                 if (!inStorage) {
                         int x = (int) Math.round(position.getPosition().getX());
                         int y = (int) Math.round(position.getPosition().getY());

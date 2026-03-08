@@ -15,48 +15,55 @@ public class CarController {
     private boolean engineON = false;
     ArrayList<Car> cars = new ArrayList<>();
 
+    public void update(Garage<Volvo240> workshop) {
+        for (Car car : cars) {
+            car.move();
 
+            int x = (int) Math.round(car.pos.getPosition().getX());
+            int y = (int) Math.round(car.pos.getPosition().getY());
 
-    //methods: //Lagarar bilar i verkstan, tar bort från listan, tar bort dess sprite
-    public <CarType extends Car> void handleWorkshopCollision(CarView view, Garage<CarType> workshop) {
+            handleEdgeCollision(
+                    car,
+                    x,
+                    y,
+                    800,
+                    500
+            );
+        }
+        handleWorkshopCollision(workshop);
+    }
+
+    //methods:
+    // Lagarar bilar i verkstan, tar bort från listan, tar bort dess sprite
+    public <CarType extends Car> void handleWorkshopCollision(Garage<CarType> workshop) {
         for (int i = 0; i < cars.size(); i++) {
             Car car = cars.get(i);
 
-            Position workshopPos = view.drawPanel.workshopSprites.getSprites().get(0).position;
-
-            Sprite workshopSprite = view.drawPanel.workshopSprites.getSprites().get(0);
-            Sprite sprite = view.drawPanel.carSprites.getSprites().get(i);
-
-            Position workshopMidPoint = new Position((workshopPos.getX() - workshopSprite.getImage().getWidth() / 2),
-                    (workshopPos.getY() - workshopSprite.getImage().getHeight() / 2));
-
-            Position carMidPoint = new Position((car.pos.getPosition().getX() - sprite.getImage().getWidth() / 2),
-                    car.pos.getPosition().getY() - sprite.getImage().getHeight() / 2);
-
-            if (car.pos.checkCollision(workshopMidPoint, carMidPoint, (sprite.getImage().getWidth() / 2))) {
+            if (car.pos.checkCollision(workshop.pos, car.pos, 40)) {
                 try {
                     workshop.storeCar((CarType) car);
                     Car volvo = cars.remove(i);
-                    sprite.setStorageState(true);
-                    view.drawPanel.carSprites.getSprites().remove(i);
                     i--;
                 } catch (IllegalArgumentException ignored) {}
             }
         }
     }
     //Vad som händer när bilarna nuddar väggarna
-    public void handleEdgeCollision(Car car, int x, int y, int width, int height, int imgW, int imgH) {
-        if (x + imgW > width) {
+    public void handleEdgeCollision(Car car, int x, int y, int width, int height) {
+        int carW = car.getSize().get(0);
+        int carH = car.getSize().get(1);
+
+        if (x + carW > width) {
             car.setDirection(Math.PI - car.getDirection());
-            car.pos.setX(width - imgW);
+            car.pos.setX(width - carW);
         } else if (x < 0) {
             car.setDirection(Math.PI - car.getDirection());
             car.pos.setX(0);
         }
 
-        if (y + imgH > height) {
+        if (y + carH > height) {
             car.setDirection(-car.getDirection());
-            car.pos.setY(height - imgH);
+            car.pos.setY(height - carH);
         } else if (y < 0) {
             car.setDirection(-car.getDirection());
             car.pos.setY(0);

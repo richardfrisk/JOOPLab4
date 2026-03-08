@@ -5,13 +5,15 @@ public class Scania extends Truck {
     private boolean hasBed;
     private double bedAngle;
 
-    public Scania(double startY) {
+    public Scania(Position startPosition) {
         nrDoors = 2;
         color = Color.pink;
         enginePower = 100;
         modelName = "Scania";
         turningForce = 1;
-        pos.setY(startY);
+        pos.setPosition(startPosition);
+        width = 100;
+        height = 60;
         hasBed = true;
         if (hasBed) bedAngle = 0;
         stopEngine();

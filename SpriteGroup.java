@@ -26,7 +26,7 @@ public class SpriteGroup implements drawableSprite {
     @Override
     public void drawImage(Graphics g) {
         for (Sprite sprite : sprites) {
-            sprite.drawImage(g);
+         //   sprite.drawImage(g);
         }
     }
 }

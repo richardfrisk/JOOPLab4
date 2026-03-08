@@ -1,8 +1,12 @@
 import java.awt.*;
+import java.util.ArrayList;
 //import java.lang.Math.*;
 
 public abstract class Car implements Movable {
     //Abstract - går ej att göra objekt av car
+
+    int width;
+    int height;
 
     //Hjälper till för att se att vi verkligen override:ar
     @Override
@@ -79,9 +83,15 @@ public abstract class Car implements Movable {
     public Color getColor() {
         return color;
     }
-
     protected void setColor(Color clr) {
         color = clr;
+    }
+
+    protected ArrayList<Integer> getSize() {
+        ArrayList<Integer> size = new ArrayList<>(2);
+        size.add(width);
+        size.add(height);
+        return size;
     }
 
     public void startEngine() {

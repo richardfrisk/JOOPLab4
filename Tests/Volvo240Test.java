@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Volvo240Test {
-    Volvo240 Volvo = new Volvo240(0);
+    Volvo240 Volvo = new Volvo240(new Position(0, 0));
 
     @Test
     void incrementSpeed() {

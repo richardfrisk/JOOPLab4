@@ -4,14 +4,16 @@ public class Saab95 extends PassengerCar{
 
     private boolean turboOn;
 
-    public Saab95(double startY){
+    public Saab95(Position startPosition){
         nrDoors = 2;
         color = Color.red;
         enginePower = 125;
         turboOn = false;
         modelName = "Saab95";
         turningForce = 1;
-        pos.setY(startY);
+        pos.setPosition(startPosition);
+        width = 100;
+        height = 60;
         stopEngine();
     }
 

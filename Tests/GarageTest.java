@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GarageTest {
-    Saab95 saab = new Saab95(0);
+    Saab95 saab = new Saab95(new Position(0, 0));
 
 
     @Test

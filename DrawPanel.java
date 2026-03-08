@@ -10,33 +10,26 @@ import javax.swing.*;
 
 public class DrawPanel extends JPanel{
 
-    BufferedImage volvoWorkshopImage;
-    Point volvoWorkshopPoint = new Point(300,300);
+    Sprite volvo;
+    Sprite saab;
+    Sprite scania;
+    Sprite volvoWorkshop;
 
-    SpriteGroup carSprites = new SpriteGroup();
-    SpriteGroup workshopSprites = new SpriteGroup();
-
-    void moveit(int x, int y, Sprite sprite) {
-        sprite.position.setPosition(new Position(x, y));
-    }
+    CarController cc;
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y) {
+    public DrawPanel(int x, int y, CarController cc) {
+        this.cc = cc;
+
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
 
-        Sprite volvo = new Sprite(new Position(0, 0), "pics/Volvo240.jpg");
-        Sprite saab = new Sprite(new Position(0, 0), "pics/Saab95.jpg");
-        Sprite scania = new Sprite(new Position(0, 0), "pics/Scania.jpg");
+        volvo = new Sprite("pics/Volvo240.jpg");
+        saab = new Sprite("pics/Saab95.jpg");
+        scania = new Sprite("pics/Scania.jpg");
 
-        Sprite volvoWorkshop = new Sprite(new Position(300, 300), "pics/VolvoBrand.jpg");
-
-        carSprites.addSprite(volvo);
-        carSprites.addSprite(saab);
-        carSprites.addSprite(scania);
-
-        workshopSprites.addSprite(volvoWorkshop);
+        volvoWorkshop = new Sprite("pics/VolvoBrand.jpg");
     }
 
 
@@ -45,9 +38,19 @@ public class DrawPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        carSprites.drawImage(g);
+        for (Car car : cc.cars){
+            Position carPosition = car.pos.getPosition();
+            if (car instanceof Volvo240) {
+                volvo.drawImage(g, carPosition);
 
-        workshopSprites.drawImage(g);
+            } else if (car instanceof Saab95) {
+                saab.drawImage(g, carPosition);
 
+            } else if (car instanceof Scania) {
+                scania.drawImage(g, carPosition);
+            }
+        }
+
+        volvoWorkshop.drawImage(g, new Position(300, 300));
     }
 }

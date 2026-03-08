@@ -23,9 +23,9 @@ public class Main {
 
     public void main(String[] args) {
         // Instance of this class
-        cc.cars.add(new Volvo240(300));
-        cc.cars.add(new Saab95(100));
-        cc.cars.add(new Scania(200));
+        cc.cars.add(new Volvo240(new Position(0, 300)));
+        cc.cars.add(new Saab95(new Position(0, 100)));
+        cc.cars.add(new Scania(new Position(0, 200)));
 
         // Start a new view and send a reference of self
         frame = new CarView("CarSim 1.0", cc);
@@ -39,8 +39,9 @@ public class Main {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            frame.update(workshop);
+            cc.update(workshop);
+            // Repaint once after all movements are calculated
+            frame.drawPanel.repaint();
         }
-
     }
 }

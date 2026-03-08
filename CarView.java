@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.lang.Math.clamp;
+
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
  * It initializes with being center on the screen and attaching it's controller in it's state.
@@ -13,16 +15,16 @@ import java.awt.event.ActionListener;
  **/
 
 /*
-Move update() to carController
-Fix sprite to not have a position
-View is allowed to have read-only access to the model
-controller has a write/read relationship to model
-Model is write-only to view
-Model using drawpanel is really bad!
-The cars position in model is its midpoint
-Do the midpoint calculation when drawing the sprite
-Moveit() needs to go, the modelCar moves and the sprite follows
-Right now we have, move modelCar and move spriteCar
+Move update() to carController // done
+Fix sprite to not have a position // done
+View is allowed to have read-only access to the model // OK
+controller has a write/read relationship to model // OK
+Model is write-only to view // OK
+Model using drawpanel is really bad! // fixed
+The cars position in model is its midpoint // OK
+Do the midpoint calculation when drawing the sprite // Not necessary
+Moveit() needs to go, the modelCar moves and the sprite follows // done
+Right now we have, move modelCar and move spriteCar // not anymore
  */
 
 
@@ -33,7 +35,7 @@ public class CarView extends JFrame{
     // The controller member
     CarController carC;
 
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    DrawPanel drawPanel;
 
     JPanel controlPanel = new JPanel();
 
@@ -57,38 +59,8 @@ public class CarView extends JFrame{
     // Constructor
     public CarView(String framename, CarController cc){
         this.carC = cc;
+        drawPanel = new DrawPanel(X, Y-240, carC);
         initComponents(framename);
-    }
-
-    public void update(Garage<Volvo240> workshop) {
-        // Bytte till en mer traditionell for loop för att få garaget att fungera
-        for (int i = 0; i < carC.cars.size(); i++) {
-            Car car = carC.cars.get(i);
-            Sprite sprite = drawPanel.carSprites.getSprites().get(i);
-            car.move();
-
-            int x = (int) Math.round(car.pos.getPosition().getX());
-            int y = (int) Math.round(car.pos.getPosition().getY());
-
-
-
-            carC.handleEdgeCollision(
-                    car,
-                    x,
-                    y,
-                    getWidth(),
-                    getHeight(),
-                    sprite.getImage().getHeight(),
-                    sprite.getImage().getWidth()
-
-            );
-
-            drawPanel.moveit(x, y, sprite);
-
-        }
-        carC.handleWorkshopCollision(this, workshop);
-        // Repaint once after all movements are calculated
-        drawPanel.repaint();
     }
 
     // Sets everything in place and fits everything
@@ -99,8 +71,6 @@ public class CarView extends JFrame{
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
-
-
 
         SpinnerModel spinnerModel =
                 new SpinnerNumberModel(0, //initial value
@@ -204,19 +174,19 @@ public class CarView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(carC.cars.size() < 10) {
                     Position pos = new Position(Math.round(Math.random() * 800), Math.round(Math.random() * 500));
-                    PassengerCar saab = new Saab95(pos.getY());
-                    saab.pos.setX(pos.getX());
+                    PassengerCar saab = new Saab95(pos.getPosition());
                     carC.cars.add(saab);
-                    drawPanel.carSprites.addSprite(new Sprite(pos, "pics/Saab95.jpg"));
+                    //drawPanel.carSprites.addSprite(new Sprite(pos, "pics/Saab95.jpg"));
                 }
             }
         });
         removeCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index = Math.toIntExact(Math.round(Math.random() * carC.cars.size()));
-                carC.cars.remove(index);
-                drawPanel.carSprites.getSprites().remove(index);
+                if (carC.cars.size() != 0) {
+                    int index = Math.toIntExact(Math.round(Math.random() * carC.cars.size()));
+                    carC.cars.remove(index);
+                }
             }
         });
 
