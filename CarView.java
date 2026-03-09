@@ -35,31 +35,31 @@ public class CarView extends JFrame{
     // The controller member
     CarController carC;
 
-    DrawPanel drawPanel;
+    private DrawPanel drawPanel;
 
-    JPanel controlPanel = new JPanel();
+    private JPanel controlPanel = new JPanel();
 
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-    int gasAmount = 0;
-    JLabel gasLabel = new JLabel("Amount of gas");
+    private JPanel gasPanel = new JPanel();
+    private JSpinner gasSpinner = new JSpinner();
+    private int gasAmount = 0;
+    private JLabel gasLabel = new JLabel("Amount of gas");
 
-    JButton gasButton = new JButton("Gas");
-    JButton brakeButton = new JButton("Brake");
-    JButton turboOnButton = new JButton("Saab Turbo on");
-    JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
-    JButton addCarButton = new JButton("Add car");
-    JButton removeCarButton = new JButton("Remove car");
+    private JButton gasButton = new JButton("Gas");
+    private JButton brakeButton = new JButton("Brake");
+    private JButton turboOnButton = new JButton("Saab Turbo on");
+    private JButton turboOffButton = new JButton("Saab Turbo off");
+    private JButton liftBedButton = new JButton("Scania Lift Bed");
+    private JButton lowerBedButton = new JButton("Lower Lift Bed");
+    private JButton addCarButton = new JButton("Add car");
+    private JButton removeCarButton = new JButton("Remove car");
 
-    JButton startButton = new JButton("Start all cars");
-    JButton stopButton = new JButton("Stop all cars");
+    private JButton startButton = new JButton("Start all cars");
+    private JButton stopButton = new JButton("Stop all cars");
 
     // Constructor
     public CarView(String framename, CarController cc){
         this.carC = cc;
-        drawPanel = new DrawPanel(X, Y-240, carC);
+        drawPanel = new DrawPanel(X, Y-240, cc.getModel().getCars());
         initComponents(framename);
     }
 
@@ -172,21 +172,13 @@ public class CarView extends JFrame{
         addCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(carC.cars.size() < 10) {
-                    Position pos = new Position(Math.round(Math.random() * 800), Math.round(Math.random() * 500));
-                    PassengerCar saab = new Saab95(pos.getPosition());
-                    carC.cars.add(saab);
-                    //drawPanel.carSprites.addSprite(new Sprite(pos, "pics/Saab95.jpg"));
-                }
+                carC.addCar();
             }
         });
         removeCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (carC.cars.size() != 0) {
-                    int index = Math.toIntExact(Math.round(Math.random() * carC.cars.size()));
-                    carC.cars.remove(index);
-                }
+                carC.removeCar();
             }
         });
 

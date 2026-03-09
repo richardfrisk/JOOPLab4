@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.ArrayList;
 //import java.lang.Math.*;
 
-public abstract class Car implements Movable {
+public abstract class Car implements Movable, ReadCar {//ska ockå implemntera ett annat interface(carViewData) som bara innehåller gets position och annat view behöver
     //Abstract - går ej att göra objekt av car
 
     int width;
@@ -31,11 +31,21 @@ public abstract class Car implements Movable {
         direction = inputDirection;
         return direction;
     }
-
-    protected double getDirection() {
+    @Override
+    public double getDirection() {
         direction %= Math.PI * 2;
         if (direction < 0) direction += Math.PI * 2;
         return direction;
+    }
+
+    @Override
+    public Position getPosition(){
+        return this.pos;
+    }
+
+    @Override
+    public String getModel(){
+        return this.modelName;
     }
 
     //Utomstående ska inte kunna ändra positionen men alla nya bilar som skapas behöver använda och uppdatera positionen

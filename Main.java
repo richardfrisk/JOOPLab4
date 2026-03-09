@@ -15,18 +15,17 @@ public class Main {
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    CarController cc = new CarController();
+    CarController cc;
+    CarModel model;
     // A list of cars, modify if needed
     //ArrayList<Car> cars = new ArrayList<>();
     Garage<Volvo240> workshop = new Garage<>(new Position(300, 300), Volvo240.class);
 
-
     public void main(String[] args) {
         // Instance of this class
-        cc.cars.add(new Volvo240(new Position(0, 300)));
-        cc.cars.add(new Saab95(new Position(0, 100)));
-        cc.cars.add(new Scania(new Position(0, 200)));
+        model = new CarModel();
 
+        cc = new CarController(model);
         // Start a new view and send a reference of self
         frame = new CarView("CarSim 1.0", cc);
 
@@ -39,9 +38,10 @@ public class Main {
      * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            cc.update(workshop);
+            model.update();
             // Repaint once after all movements are calculated
-            frame.drawPanel.repaint();
+            frame.repaint();
+            //frame.getDrawpanel().repaint()
         }
     }
 }

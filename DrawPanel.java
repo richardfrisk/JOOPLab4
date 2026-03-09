@@ -15,11 +15,11 @@ public class DrawPanel extends JPanel{
     Sprite scania;
     Sprite volvoWorkshop;
 
-    CarController cc;
+    ArrayList<Car> cars;
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, CarController cc) {
-        this.cc = cc;
+    public DrawPanel(int x, int y, ArrayList<Car> cars) {
+        this.cars = cars;
 
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
@@ -38,15 +38,15 @@ public class DrawPanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for (Car car : cc.cars){
-            Position carPosition = car.pos.getPosition();
-            if (car instanceof Volvo240) {
+        for (ReadCar car : cars){//ändra till carViewInterface
+            Position carPosition = car.getPosition();
+            if (car.getModel().equals("Volvo240")) {
                 volvo.drawImage(g, carPosition);
 
-            } else if (car instanceof Saab95) {
+            } else if (car.getModel().equals("Saab95")) {
                 saab.drawImage(g, carPosition);
 
-            } else if (car instanceof Scania) {
+            } else if (car.getModel().equals("Scania")) {
                 scania.drawImage(g, carPosition);
             }
         }
